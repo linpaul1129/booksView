@@ -29,11 +29,13 @@ Vue.use(VueAxios, axios)
 
 export default {
   name: "About",
+  props :{
+    id: Number
+  },
   data () {
     return {
-      price: 1,
-      count: 1,
-      id: 3,
+      price: null,
+      count: null,
     }
   },
   methods : {
@@ -58,6 +60,12 @@ export default {
       })
     }
   },
+  created() {
+    Vue.axios.get('https://fe-interview-api.unnotech.com/profile/'+this.id).then( (res) => {
+      this.price = res.data.price
+      this.count = res.data.count
+    })
+  }
 }
 </script>
 

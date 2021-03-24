@@ -1,28 +1,39 @@
 <template>
+<div>
   <div class="home">
     <div v-for="book in books" :key="book.id" class="book" @click="showDetail(book.id)">
       <img :src="book.image" />
       <div>{{ book.name }}</div>
     </div>
   </div>
+  <div v-if="id != null">
+    <about :id="this.id"></about>
+  </div>
+</div>
 </template>
 
 <script>
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import About from './About.vue'
 
 Vue.use(VueAxios, axios)
 export default {
   name: 'books',
+  components :{
+    About
+  },
   data () {
     return {
       books: [],
+      id: null,
     }
   },
   methods: {
     showDetail(id){
-      console.log(id)
+      console.log(id);
+      this.id = id;
     }
   },
   created() {
