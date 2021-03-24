@@ -33,10 +33,9 @@ export default {
   data () {
     return {
       books: [],
-      id: null,
       swiperOption: {
         slidesPerView: 3,
-        slidesPerGroup: 1,
+        slidesPerGroup: 3,
         pagination: {
           el: ".swiper-pagination",
           clickable: true
