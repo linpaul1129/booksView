@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'root',
-    redirect: Books
+    redirect: { name: 'Books' }
   },
   {
     path: '/books',

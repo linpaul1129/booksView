@@ -27,9 +27,11 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+Vue.use(VueAxios, axios)
+
 import BookList from "@/components/Booklist.vue";
 
-Vue.use(VueAxios, axios)
+
 
 export default {
   name: "About",
@@ -89,8 +91,8 @@ export default {
   border: 1px solid black;
   margin: {
     top:50px;
-    left: 20%;
-    right:20%;
+    left: 250px;
+    right:250px;
   };
   .title {
     font-size: 24px;

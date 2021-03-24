@@ -10,8 +10,6 @@
         <div>{{ book.name }}</div>
       </router-link>
     </swiper-slide>
-    <div class="swiper-button-prev" slot="button-prev"></div>
-    <div class="swiper-button-next" slot="button-next"></div>
     </swiper>
   </div>
 </div>
@@ -21,9 +19,11 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+Vue.use(VueAxios, axios)
+
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 
-Vue.use(VueAxios, axios)
+
 export default {
   name: 'books',
   components: {
@@ -35,21 +35,23 @@ export default {
       books: [],
       swiperOption: {
         slidesPerView: 3,
-        slidesPerGroup: 3,
+        spaceBetween: 20,
+        freeMode: true,
         pagination: {
-          el: ".swiper-pagination",
+          el: '.swiper-pagination',
           clickable: true
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev"
         }
-      },
+      }
     }
   },
   created() {
-    Vue.axios.get('https://fe-interview-api.unnotech.com/books').then((res) => {
-      this.books = res.data;
+    this.axios.get('https://fe-interview-api.unnotech.com/books').then((res) => {
+      for ( var i = 0; i < res.data.length; i++ ) {
+        if ( res.data[i].image != undefined && res.data[i].name != undefined) {
+          this.books.push(res.data[i]);
+        }
+      }
+      
     })
   },
   methods : {
@@ -67,16 +69,13 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  display: flex;
   border: 1px solid black;
-  overflow: auto;
   margin: {
     top:50px;
-    left: 20%;
-    right:20%;
+    left: 250px;
+    right:250px;
   };
   .book {
-    width: auto;
     height: auto;
     border: 1px solid black;
     padding:10px;
