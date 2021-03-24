@@ -1,24 +1,10 @@
-# books
+# books list
 
-## Project setup
+## 執行專案
 ```
+git clone https://github.com/linpaul1129/booksView.git
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run serve
 ```
+## 專案架構
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

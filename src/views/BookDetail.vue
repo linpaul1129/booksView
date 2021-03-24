@@ -1,4 +1,6 @@
 <template>
+<div class="main">
+  <BookList/>
   <div class="about">
     <div class="price">
       <div class="title">價格</div>
@@ -16,26 +18,28 @@
           <button @click="countPlus">+</button>
       </div> 
     </div>
-    <div class="confirm" @click="saveChange" >確認修改</div>
+    <div class="confirm"><button @click="saveChange" >確認修改</button></div>
   </div>
+</div>
 </template>
 
 <script>
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import BookList from "@/components/Booklist.vue";
 
 Vue.use(VueAxios, axios)
 
 export default {
   name: "About",
-  props :{
-    id: Number
+  components: {
+    BookList,
   },
   data () {
     return {
       price: null,
-      count: null,
+      count: null
     }
   },
   methods : {
@@ -54,18 +58,29 @@ export default {
         this.count--;
     },
     saveChange() {
-      Vue.axios.patch('https://fe-interview-api.unnotech.com/profile/'+this.id, {
+      const { id } = this.$route.params;
+      Vue.axios.patch('https://fe-interview-api.unnotech.com/profile/'+id, {
         price:this.price,
         count:this.count
       })
     }
   },
   created() {
-    Vue.axios.get('https://fe-interview-api.unnotech.com/profile/'+this.id).then( (res) => {
+    const { id } = this.$route.params;
+    Vue.axios.get('https://fe-interview-api.unnotech.com/profile/'+id).then( (res) => {
       this.price = res.data.price
       this.count = res.data.count
     })
-  }
+  },
+  beforeRouteUpdate(to, from, next) {
+    // get data when route change
+    const { id } = to.params;
+    Vue.axios.get('https://fe-interview-api.unnotech.com/profile/'+id).then( (res) => {
+      this.price = res.data.price
+      this.count = res.data.count
+    })
+    next();
+  },
 }
 </script>
 
@@ -87,6 +102,7 @@ export default {
     display: inline-block;
   }
   .inputbox {
+    font-size: 24px;
     margin: {
       left: 10px;
       right: 10px;
@@ -101,11 +117,12 @@ export default {
     padding: 40px;
   }
   .confirm {
-    cursor: pointer;
-    font-size: 24px;
-    line-height: 30px;
     text-align: right;
-    padding: 40px;
+    margin: 40px;
+  }
+  button {
+    font-size: 24px;
+    cursor: pointer;
   }
 }
 

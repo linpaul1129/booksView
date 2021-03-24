@@ -1,68 +1,15 @@
 <template>
-<div>
-  <div class="home">
-    <div v-for="book in books" :key="book.id" class="book" @click="showDetail(book.id)">
-      <img :src="book.image" />
-      <div>{{ book.name }}</div>
-    </div>
+  <div class="main">
+    <BookList />
   </div>
-  <div v-if="id != null">
-    <about :id="this.id"></about>
-  </div>
-</div>
 </template>
 
 <script>
-import Vue from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-import About from './About.vue'
+import BookList from "@/components/Booklist.vue";
 
-Vue.use(VueAxios, axios)
 export default {
-  name: 'books',
-  components :{
-    About
+  components: {
+    BookList,
   },
-  data () {
-    return {
-      books: [],
-      id: null,
-    }
-  },
-  methods: {
-    showDetail(id){
-      console.log(id);
-      this.id = id;
-    }
-  },
-  created() {
-    Vue.axios.get('https://fe-interview-api.unnotech.com/books').then((res) => {
-      this.books = res.data;
-    })
-  }
-}
+};
 </script>
-
-<style lang="scss">
-.home {
-  display: flex;
-  border: 1px solid black;
-  overflow: auto;
-  margin: {
-    top:50px;
-    left: 20%;
-    right:20%;
-  };
-  .book {
-    width: 320px;
-    border: 1px solid black;
-    padding:10px;
-    margin: 10px;
-    img {
-      width: 300px;
-      height: 300px;
-    }
-  }
-}
-</style>
