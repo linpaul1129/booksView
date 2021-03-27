@@ -46,12 +46,10 @@ export default {
   },
   created() {
     this.axios.get('https://fe-interview-api.unnotech.com/books').then((res) => {
-      for ( var i = 0; i < res.data.length; i++ ) {
-        if ( res.data[i].image != undefined && res.data[i].name != undefined) {
-          this.books.push(res.data[i]);
-        }
-      }
-      
+      this.books = res.data;
+    })
+    .catch( function() {
+      alert("Get book list failed!");
     })
   },
   methods : {
@@ -68,13 +66,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/base.scss';
+
 .home {
+  width:80%;
+  margin:{
+    left:10%;
+    right:10%;
+  }
   border: 1px solid black;
-  margin: {
-    top:50px;
-    left: 250px;
-    right:250px;
-  };
   .book {
     height: auto;
     border: 1px solid black;

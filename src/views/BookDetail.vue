@@ -65,6 +65,9 @@ export default {
         price:this.price,
         count:this.count
       })
+      .catch(function(){
+        alert("Get book profile error!")
+      })
     }
   },
   created() {
@@ -72,6 +75,9 @@ export default {
     Vue.axios.get('https://fe-interview-api.unnotech.com/profile/'+id).then( (res) => {
       this.price = res.data.price
       this.count = res.data.count
+    })
+    .catch(function(){
+      alert("Get book profile error!")
     })
   },
   beforeRouteUpdate(to, from, next) {
@@ -81,51 +87,14 @@ export default {
       this.price = res.data.price
       this.count = res.data.count
     })
+    .catch(function(){
+      alert("Get book profile error!")
+    })
     next();
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.about {
-  border: 1px solid black;
-  margin: {
-    top:50px;
-    left: 250px;
-    right:250px;
-  };
-  .title {
-    font-size: 24px;
-    line-height: 30px;
-    width:120px;
-    display: inline-block;
-  }
-  .count {
-    display: inline-block;
-  }
-  .inputbox {
-    font-size: 24px;
-    margin: {
-      left: 10px;
-      right: 10px;
-    };
-  }
-  .price {
-    text-align: left;
-    padding: 40px;
-  } 
-  .counts {
-    text-align: left;
-    padding: 40px;
-  }
-  .confirm {
-    text-align: right;
-    margin: 40px;
-  }
-  button {
-    font-size: 24px;
-    cursor: pointer;
-  }
-}
-
+@import '../assets/detail.scss';
 </style>
